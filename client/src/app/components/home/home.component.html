@@ -1,0 +1,67 @@
+<header>
+<nav>
+  <div class="nav-wrapper">
+    <a href="#" class="brand-logo center">
+      <i class="material-icons">album</i>PicSim</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li>
+        <a (click)="Logout()">Logout</a>
+      </li>
+      <li>
+        <a (click)="Logout()">Manager</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</header>
+<body>
+<div class="row">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-image">
+        <img src="images/sample-1.jpg">
+        <span class="card-title">Card Title</span>
+      </div>
+      <div class="card-content">
+        <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+      </div>
+      <div class="card-action">
+        <a href="#">This is a link</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-image">
+        <img src="images/sample-1.jpg">
+        <span class="card-title">Card Title</span>
+      </div>
+      <div class="card-content">
+        <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+      </div>
+      <div class="card-action">
+        <a href="#">This is a link</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<div class="row" *ngIf="userClaims">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-content">
+        <span>Username :{{userClaims.UserName}}</span>
+        <br>
+        <span>Email : {{userClaims.Email}}</span>
+        <br>
+        <span>Full Name : {{userClaims.FirstName}} {{userClaims.LastName}}</span>
+        <br>
+        <span>Logged On : {{userClaims.LoggedOn}}</span>
+      </div>
+    </div>
+  </div>
+</div>
