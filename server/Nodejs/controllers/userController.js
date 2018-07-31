@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10 ;// increase this if you want more iterations
 const randomPassword = 'fakepassword';
 
-
+var { Place } = require('../models/place');
 var { User } = require('../models/user');
 
 exports.connectedUsers =[];
@@ -67,7 +67,6 @@ router.post('/',(req,res)=>{
 
        }
     });
-
 });
 
 router.put('/:id', (req, res) => {
@@ -102,6 +101,80 @@ router.delete('/:id',(req,res)=>{
     });
 });
 
+
+
+//favoritessssssssssssssssssssssssssssssssssssssssss
+router.get('/:id/favorites',(req,res)=> {
+
+    if(!ObjectId.isValid(req.params.id)){
+        return res.status(400).send('No record with given id : ${req.params.id}');
+    }
+
+    //get the user by id
+    User.find({ObjectId:req.params.id,favorites:{}},(err,favoritesPlacesIDs)=> {
+        if(!err) {
+            let favoritesPlaces = [];
+            //get the user favorite places by their ids
+            favoritesPlacesIDs.forEach(function(placeId){
+                Place.find({ObjectId:placeId},(err,favoritesPlace)=> {
+                         if(!err) {
+                            favoritesPlaces.push(favoritesPlace);
+                         }
+                         else {
+                             console.log("error get favorites places of user");
+                             console.log(err.message);
+                              res.send(err.message);
+                         }
+                         if (favoritesPlacesIDs.length === favoritesPlaces.length){
+                             console.log("favorites places of user returned with count: " + favoritesPlaces.length);
+                             res.send(favoritesPlaces);
+                         }
+                });
+            });
+        }
+        else {
+            console.log("error get favorites places of user");
+            console.log(err.message);
+            res.send(err.message);
+        }
+    });
+});
+
+
+
+//remove place id from user favorites
+router.delete('/:id/favorites/:placeId',(req,res)=>{
+
+    if(!ObjectId.isValid(req.params.id)){
+        return res.status(400).send('No record with given id : ${req.params.id}');
+    }
+
+    User.update({ObjectId:req.params.id},{$unset:{favorites:req.params.placeId}},(err,doc)=>{
+        if(!err){
+            res.send(doc);
+        }
+        else{
+            console.log('Error in User Delete : ' + JSON.stringify(err,undefined,2));
+
+        }
+    });
+});
+
+//add place id from user favorites
+router.post('/:id/favorites/:placeId',(req,res)=>{
+    if(!ObjectId.isValid(req.params.id)){
+        return res.status(400).send('No record with given id : ${req.params.id}');
+    }
+    User.update({ObjectId:req.params.id},{$set:{favorites:req.params.placeId}},(err,doc)=>{
+        if(!err){
+            res.send(doc);
+        }
+        else{
+            console.log('Error in User Delete : ' + JSON.stringify(err,undefined,2));
+
+        }
+    });
+});
 module.exports =router;
 
 

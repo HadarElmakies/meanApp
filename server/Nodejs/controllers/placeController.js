@@ -42,7 +42,7 @@ router.get('/name/:name',(req,res)=>{
     console.log("get places with params");
     const placeName = req.params.name;
 
-    Place.find({name:"Eiffel Tower"},(err,place)=> {
+    Place.find({name:placeName},(err,place)=> {
         if(!err){
             console.log("places was found");
             res.send(place);
