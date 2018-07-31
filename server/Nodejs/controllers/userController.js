@@ -8,6 +8,8 @@ const randomPassword = 'fakepassword';
 
 var { User } = require('../models/user');
 
+exports.connectedUsers =[];
+
 //=>localhost:3000/users/
 router.get('/',(req,res)=>{
         User.find((err,docs)=>{
@@ -26,9 +28,10 @@ router.get('/:id',(req,res)=>{
    if(!ObjectId.isValid(req.params.id))
        return res.status(400).send('No record with given id : ${req.params.id}');
 
-   User.findById(req.params.id,(err,users)=> {
+   User.findById(req.params.id,(err,user)=> {
        if(!err){
-           res.send(users);
+           this.connectedUsers.push(user);
+           res.send(user);
        }
        else{
            console.log('Error in retrieving User : '+ JSON.stringify(err,undefined,2));
@@ -50,6 +53,7 @@ router.post('/',(req,res)=>{
            user.password=hash;
            user.save((err,doc)=>{
                if(!err){
+                   this.connectedUsers.push(user);
                    res.send(doc);
                }
                else{
@@ -76,7 +80,9 @@ router.put('/:id', (req, res) => {
 
     };
     User.findByIdAndUpdate(req.params.id, { $set: user }, { new: true }, (err, doc) => {
-        if (!err) { res.send(doc); }
+        if (!err) {
+            res.send(doc);
+        }
         else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
     });
 });
