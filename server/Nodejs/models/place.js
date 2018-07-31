@@ -5,7 +5,11 @@ var Place = mongoose.model('Place',{
     description:{type:String},
     country:{type:String},
     rating:{type:Number},
-    imageUrl:{type:String}
+    imageUrl:{type:String},
+    location: {
+        longitude:{type:Number},
+        latitude:{type:Number}
+    }
 });
 
 module.exports =  {Place:Place};

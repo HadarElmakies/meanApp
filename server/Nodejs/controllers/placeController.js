@@ -10,6 +10,7 @@ router.get('/',(req,res)=>{
     Place.find((err,places)=>{
         if(!err){
             console.log("returning message from places");
+            console.log(places.length);
             res.send(places);
         }
         else{
