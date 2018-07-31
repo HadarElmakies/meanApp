@@ -26,24 +26,23 @@ router.get('/:id',(req,res)=>{
    if(!ObjectId.isValid(req.params.id))
        return res.status(400).send('No record with given id : ${req.params.id}');
 
-   User.findById(req.params.id,(err,doc)=> {
+   User.findById(req.params.id,(err,users)=> {
        if(!err){
-           res.send(doc);
+           res.send(users);
        }
        else{
            console.log('Error in retrieving User : '+ JSON.stringify(err,undefined,2));
+           res.send(err.message);
        }
    });
 });
 
 router.post('/',(req,res)=>{
 
-
-
     var user = new User({
         email:req.body.email,
         password:req.body.password,
-        userName:req.body.userName
+        isAdmin:false
     });
 
     bcrypt.hash(user.password,saltRounds,function(err,hash){

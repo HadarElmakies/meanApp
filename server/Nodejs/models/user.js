@@ -3,7 +3,6 @@ const mongoose =require('mongoose');
 var User = mongoose.model('User',{
     email:{type:String},
     password:{type:String},
-    userName:{type:String},
     isAdmin:{type:Boolean}
 });
 
