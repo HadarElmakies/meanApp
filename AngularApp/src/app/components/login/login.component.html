@@ -1,0 +1,51 @@
+<div class="formcontainer">
+  <div class="formbody">
+    <form style="width:100%;" [formGroup]="loginForm">
+      <div class="header">Welcome</div>
+      <div>
+        <mat-form-field style="width:100%;">
+          <input type="text" formControlName="email" matInput placeholder="Email">
+        </mat-form-field>
+        <span *ngIf="isValid('email')">Email cannot be blank</span>
+      </div>
+      <div>
+        <mat-form-field style="width:100%;">
+          <input type="password" formControlName="password" matInput placeholder="Password">
+        </mat-form-field>
+        <span *ngIf="isValid('password')">Password cannot be blank</span>
+      </div>
+      <div style="margin-top:40px;">
+        <button class="form-btn" (click)="login()">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <div>
+    <div style="width: 290px; padding: 20px;">
+      <button class="form-btn-hollow" (click)="movetoregister()">Register</button>
+    </div>
+  </div>
+</div>
+<!--<div *ngIf="isLoginError" class="red-text center error-message">
+  <i class="material-icons">error</i> Incorrect username or password
+</div>
+<form #loginForm="ngForm" class="col s12 white">
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">account_circle</i>
+      <input type="text" #UserName ngModel name="Email" placeholder="Email" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">vpn_key</i>
+      <input type="password" #Password ngModel name="Password" placeholder="Password" required>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <button [disabled]="!loginForm.valid" class="btn-large btn-submit" type="submit">Login</button>
+    </div>
+  </div>
+</form>
+-->

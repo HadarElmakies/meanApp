@@ -1,0 +1,189 @@
+<header>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">
+        <i class="material-icons">album</i>PicSim</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li>
+          <a (click)="Logout()">Manager</a>
+        </li>
+        <li>
+          <a (click)="Logout()">Favorites</a>
+        </li>
+        <li>
+          <a [routerLink]="['/main/login']">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<body>
+<h3>Hello {{username}}</h3>
+<section>
+  <div class="gallery" width="70" height="70">
+    <div class="row">
+
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Paris1.jpg">
+            <span class="card-title">Eiffel Tower, Paris</span>
+          </div>
+          <div class="card-content">
+            <p>The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris, France.
+              It is named after the engineer Gustave Eiffel, whose company designed and built the tower.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/London1.jpg">
+            <span class="card-title">Big Ben, London</span>
+          </div>
+          <div class="card-content">
+            <p>Big Ben is the nickname for the Great Bell of the clock at the north end of the Palace of Westminster in London
+              and is usually extended to refer to both the clock and the clock tower.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Greece1.jpg">
+            <span class="card-title">Santorini</span>
+          </div>
+          <div class="card-content">
+            <p>Santorini is an island in the southern Aegean Sea, about 200 km (120 mi) southeast of Greece's mainland. It is the largest island of a small,
+              circular archipelago, which bears the same name and is the remnant of a volcanic caldera</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Phuket1.jpg">
+            <span class="card-title">Phuket, Thailand</span>
+          </div>
+          <div class="card-content">
+            <p>Phuket is one of the southern provinces (changwat) of Thailand. It consists of the island of Phuket, the country's largest island
+              , and another 32 smaller islands off its coast</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Berlin1.jpg">
+            <span class="card-title">Alexanderplatz square, Berlin</span>
+          </div>
+          <div class="card-content">
+            <p>Alexanderplatz is a large public square and transport hub in the central Mitte district of Berlin, near the Fernsehturm. Berliners often call it simply Alex,
+              referring to a larger neighbourhood stretching from Mollstraße in the northeast to Spandauer Straße and the Rotes Rathaus in the southwest.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Dublin1.jpg">
+            <span class="card-title">Old Town ,Dublin</span>
+          </div>
+          <div class="card-content">
+            <p>Oldtown is a population centre and townland in the civil parish of Clonmethan in Fingal, Ireland.
+              The R122 road runs through the village linking Naul to St Margaret's and Dublin Airport.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Swiss1.jpg">
+            <span class="card-title">kleine scheidegg, Switzerland</span>
+          </div>
+          <div class="card-content">
+            <p>The Kleine Scheidegg is a mountain pass at an elevation of 2,061 m (6,762 ft),
+              situated below and between the Eiger and Lauberhorn peaks in the Bernese Oberland region of Switzerland.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s12 m7">
+        <div class="card">
+          <div class="card-image">
+            <img src="../../../assets/Austria1.jpg">
+            <span class="card-title">Hallstatt, Austria</span>
+          </div>
+          <div class="card-content">
+            <p>Hallstatt is a small village in the district of Gmunden, in the Austrian state of Upper Austria. Situated on Hallstätter See, it is part of
+              the Dachstein / Salzkammergut Cultural Landscape, one of the World Heritage Sites in Austria.</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<aside>
+  <div class="scroll">
+    <section>
+      <h6>Weather</h6>
+    </section>
+
+    <section>
+      <a target="_blank" href="http://booked.co.il/weather/tel-aviv-18414">
+        <img src="https://w.bookcdn.com/weather/picture/4_18414_1_25_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=2&domid=407&anc_id=16595"  alt="booked.net"/>
+      </a>
+    </section>
+  </div>
+</aside>
+</body>
+<footer>
+
+  <section>
+    <video id="video" width="50%" controls muted>
+      <source src="../../../assets/R7QKWgACiGA.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+
+  </section>
+</footer>
+<div class="row" *ngIf="userClaims">
+  <div class="col s12 m7">
+    <div class="card">
+      <div class="card-content">
+        <span>Username :{{userClaims.UserName}}</span>
+        <br>
+        <span>Email : {{userClaims.Email}}</span>
+        <br>
+        <span>Full Name : {{userClaims.FirstName}} {{userClaims.LastName}}</span>
+        <br>
+        <span>Logged On : {{userClaims.LoggedOn}}</span>
+      </div>
+    </div>
+  </div>
+</div>
