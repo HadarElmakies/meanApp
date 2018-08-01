@@ -29,7 +29,8 @@ export class UserComponent implements OnInit {
     this.userService.selectedUser={
       _id:"",
       email:"",
-      password:""
+      password:"",
+      userName:"",
 
     }
   }

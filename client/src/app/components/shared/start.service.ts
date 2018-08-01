@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import {User} from './user.model';
-
+@Injectable()
 
 export class StartService {
   selectedUser:User;

@@ -1,6 +1,88 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
+import {MyserviceService} from "../shared/myservice.service";
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterComponent implements OnInit {
+
+
+  myForm: FormGroup;
+  successMessage: String = '';
+  constructor(private _myservice: MyserviceService,
+              private _router: Router,
+              private _activatedRoute: ActivatedRoute) {
+    this.myForm = new FormGroup({
+      email: new FormControl(null, Validators.email),
+      username: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required),
+      //cnfpass: new FormControl(null, this.passValidator)
+    });
+
+
+/*
+    this.myForm.controls.password.valueChanges
+      .subscribe(
+        x => this.myForm.controls.cnfpass.updateValueAndValidity()
+      );
+  */
+  }
+
+  ngOnInit() {
+  }
+
+  isValid(controlName) {
+    return this.myForm.get(controlName).invalid && this.myForm.get(controlName).touched;
+  }
+/*
+  passValidator(control: AbstractControl) {
+    if (control && (control.value !== null || control.value !== undefined)) {
+      const cnfpassValue = control.value;
+
+      const passControl = control.root.get('password');
+      if (passControl) {
+        const passValue = passControl.value;
+        if (passValue !== cnfpassValue || passValue === '') {
+          return {
+            isError: true
+          };
+        }
+      }
+    }
+
+    return null;
+  }
+*/
+  register() {
+    console.log(this.myForm.value);
+
+    if (this.myForm.valid) {
+      this._myservice.submitRegister(this.myForm.value)
+        .subscribe(
+          data => {
+            this.successMessage = 'Registration Success';
+
+            this._router.navigate(['../login'], { relativeTo: this._activatedRoute });
+          },
+          error => this.successMessage = 'Some error'
+        );
+
+
+    }
+  }
+
+  movetologin(){
+    this._router.navigate(['../login'], { relativeTo: this._activatedRoute });
+  }
+}
+/*
+import { Component, OnInit } from '@angular/core';
 import {User} from "../shared/user.model";
-import { NgForm } from '@angular/forms';
+import {FormGroup, NgForm} from '@angular/forms';
 
 
 @Component({
@@ -9,9 +91,10 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
   user: User;
   emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
-
+  myForm:FormGroup
   constructor() { }
 
   ngOnInit() {
@@ -30,3 +113,4 @@ export class RegisterComponent implements OnInit {
 
 
 }
+*/

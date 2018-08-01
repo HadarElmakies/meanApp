@@ -6,9 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import {User} from './user.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
   selectedUser:User;
   users:User[];
