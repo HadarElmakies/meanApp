@@ -1,105 +1,146 @@
 const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
-const bcrypt = require('bcrypt');
-const saltRounds = 10 ;// increase this if you want more iterations
+
 const randomPassword = 'fakepassword';
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 var { Place } = require('../models/place');
-var { User } = require('../models/user');
+var  User  = require('../models/user');
 
-exports.connectedUsers =[];
 
-//=>localhost:3000/users/
-router.get('/',(req,res)=>{
-        User.find((err,docs)=>{
-            if(!err){
-                console.log("returning message from users");
-                res.send(docs);
-            }
-            else{
-                console.log("Error in Retrieving User : "+JSON.stringify(err,undefined,2));
-            }
-        });
+passport.use(new LocalStrategy(
+    {
+        usernameField: 'email',
+        passwordField: 'password'
+    },
+    function(username, password, done) {
+       User.getUserByEmail(username,function(err,user){
+           if(err) {
+               console.log("passport.use error getUserByEmail");
+               throw err;
+           }
+           if(!user){
+               console.log("passport.use error no user with this email");
+               return done(null,false,{message:'unknown user'});
+           }
+           User.comparePasswords(password,user.password,function(err,isMatch){
+               if(err) {
+                   console.log("passport.use error comparePasswords");
+                   throw err;
+               }
+               if (isMatch){
+                   console.log("passport.use passwords matches");
+                   return done(null,user);
+               }
+               else {
+                   console.log("passport.use passwords not matches");
+                   return done(null,false,{message:"Invalid password"});
+               }
+           })
+       });
+    })
+);
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
 });
 
-//=>localhost:3000/users/id
-router.get('/:id',(req,res)=>{
-   if(!ObjectId.isValid(req.params.id))
-       return res.status(400).send('No record with given id : ${req.params.id}');
-
-   User.findById(req.params.id,(err,user)=> {
-       if(!err){
-           this.connectedUsers.push(user);
-           res.send(user);
-       }
-       else{
-           console.log('Error in retrieving User : '+ JSON.stringify(err,undefined,2));
-           res.send(err.message);
-       }
-   });
+passport.deserializeUser(function(id, done) {
+    User.getUserById(id, function(err, user) {
+        done(err, user);
+    });
 });
 
-router.post('/',(req,res)=>{
+//http://localhost:3000/users/login?email=qqq@gmail.com&password=ddd111
+router.get('/login',passport.authenticate('local'),(req,res)=>{
+    var user = req["user"];
+    res.send(user);
+});
 
-    var user = new User({
-        email:req.body.email,
-        password:req.body.password,
+router.get('/logout',(req,res)=>{
+    req.logout();
+    res.send(true);
+
+});
+
+router.get('/register/:email/:password',(req,res)=>{
+
+    console.log("register");
+    var newUser = new User({
+        email:req.params.email,
+        password:req.params.password,
         isAdmin:false
     });
 
-    bcrypt.hash(user.password,saltRounds,function(err,hash){
-       if(!err) {
-           user.password=hash;
-           user.save((err,doc)=>{
-               if(!err){
-                   this.connectedUsers.push(user);
-                   res.send(doc);
-               }
-               else{
-                   console.log('Error in User save : '+JSON.stringify(err,undefined,2));
-               }
-           });
-
-       }
-       else{
-           console.log('Error in User password save : '+JSON.stringify(err,undefined,2));
-
-       }
-    });
-});
-
-router.put('/:id', (req, res) => {
-    if (!ObjectId.isValid(req.params.id))
-        return res.status(400).send(`No record with given id : ${req.params.id}`);
-
-    var user = {
-        email: req.body.email,
-        password: req.body.password,
-
-    };
-    User.findByIdAndUpdate(req.params.id, { $set: user }, { new: true }, (err, doc) => {
+    User.createUser(newUser,function(err,user){
         if (!err) {
-            res.send(doc);
+            console.log("register success " + user);
+            res.send(user);
         }
-        else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
-    });
+        else {
+            console.log("register error" );
+            res.send(false);
+        }
+    })
 });
 
-router.delete('/:id',(req,res)=>{
-    if(!ObjectId.isValid(req.params.id)){
-        return res.status(400).send('No record with given id : ${req.params.id}');
+//=>localhost:3000/users/
+router.get('/',(req,res)=>{
+
+    if (req.isAuthenticated()) {
+        User.getAllUsers((err, allUsers) => {
+            if (!err) {
+                console.log("returning message from users");
+                res.send(allUsers);
+            }
+            else {
+                console.log("Error in Retrieving User : " + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
     }
-    User.findByIdAndRemove(req.params.id,(err,doc)=>{
-       if(!err){
-           res.send(doc);
-       }
-       else{
-           console.log('Error in User Delete : ' + JSON.stringify(err,undefined,2));
-
-       }
-    });
+    else {
+        res.send("UnAuthorized");
+    }
 });
+
+
+
+
+
+// router.put('/:id', (req, res) => {
+//     if (!ObjectId.isValid(req.params.id))
+//         return res.status(400).send(`No record with given id : ${req.params.id}`);
+//
+//     var user = {
+//         email: req.body.email,
+//         password: req.body.password,
+//
+//     };
+//     User.findByIdAndUpdate(req.params.id, { $set: user }, { new: true }, (err, doc) => {
+//         if (!err) {
+//             res.send(doc);
+//         }
+//         else { console.log('Error in Employee Update :' + JSON.stringify(err, undefined, 2)); }
+//     });
+// });
+//
+// router.delete('/:id',(req,res)=>{
+//     if(!ObjectId.isValid(req.params.id)){
+//         return res.status(400).send('No record with given id : ${req.params.id}');
+//     }
+//     User.findByIdAndRemove(req.params.id,(err,doc)=>{
+//        if(!err){
+//            res.send(doc);
+//        }
+//        else{
+//            console.log('Error in User Delete : ' + JSON.stringify(err,undefined,2));
+//
+//        }
+//     });
+// });
 
 
 
