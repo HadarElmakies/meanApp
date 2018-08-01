@@ -3,7 +3,6 @@ const bodyParser= require('body-parser');
 const {mongoose} = require('./db');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const exphbs = require('express-handlebars');
 const expressValidator = require('express-validator');
 const session = require('express-session');
 const passport = require('passport');
@@ -27,10 +26,12 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.get('/', (req, res) => {
     console.log("client conected");
     res.send('Hello client!')
 });
+
 app.listen(3000,()=>console.log('Server started at port : 3000'));
 
 

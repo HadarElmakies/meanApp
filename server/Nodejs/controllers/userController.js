@@ -2,7 +2,6 @@ const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
 
-const randomPassword = 'fakepassword';
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
