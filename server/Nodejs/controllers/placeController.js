@@ -1,104 +1,134 @@
 const express = require('express');
-const https = require('https');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
-var allPlaces = require('../places');
-var googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyCfqA3SrRmnbCx1B1nxE9znS9ihjyhpaDg'
-});
-
-
-var { Place } = require('../models/place');
+var Place  = require('../models/place');
 
 //=>localhost:3000/places/
-
 router.get('/',(req,res)=>{
-    console.log(allPlaces.Aplaces.length);
-    res.send(allPlaces.Aplaces);
+    console.log("get places");
+    if (req.isAuthenticated()) {
+
+        Place.gePlaces(function(err, places){
+            if (!err) {
+                console.log("returning message from places");
+                console.log(places.length);
+                res.send(places);
+            }
+            else {
+                console.log("Error in Retrieving places : " + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
+    }
+    else {
+        res.send("UnAuthorized");
+    }
+});
+
+//=>localhost:3000/places/country
+router.get('/countries/:country',(req,res)=>{
+
+    if (req.isAuthenticated()) {
+        const countryName = req.params.country;
+
+        Place.getPlacesByCountryName(countryName,function(err,places){
+            if (!err) {
+                console.log("places found: " + places.length);
+                res.send(places);
+            }
+            else {
+                console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
+
+    }
+    else {
+        res.send("UnAuthorized");
+    }
+});
+
+//=>localhost:3000/places/name
+router.get('/name/:name',(req,res)=>{
+
+    if (req.isAuthenticated()) {
+        console.log("get places with params");
+        const placeName = req.params.name;
+        Place.getPlaceByPlaceName(placeName,function(err,place){
+            if (!err) {
+                console.log("places found: " + place.length);
+                res.send(place);
+            }
+            else {
+                console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
+    }
+    else {
+        res.send("UnAuthorized");
+    }
+
+});
+
+//=>localhost:3000/places/rating/minRate/MaxRate
+router.get('/rating/:minRate/:maxRate',(req,res)=>{
+
+    if (req.isAuthenticated()) {
+
+        console.log("get places with params");
+        const minRate = req.params.minRate;
+        const maxRate = req.params.maxRate;
+
+        console.log(minRate);
+        console.log(maxRate);
+
+        Place.getPlacesByRating(minRate,maxRate,function(err,places){
+            if (!err) {
+                console.log("places found: " + places.length);
+                res.send(places);
+            }
+            else {
+                console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
+    }
+    else {
+        res.send("UnAuthorized");
+    }
+});
+
+//=>localhost:3000/places/country/minRate/maxRate
+router.get('/country&rating/:country/:minRate/:maxRate',(req,res)=>{
+
+    if (req.isAuthenticated()) {
+
+        console.log("get places with params");
+        const countryName = req.params.country;
+        const minRate = req.params.minRate;
+        const maxRate = req.params.maxRate;
+
+        console.log(countryName);
+
+        Place.getPlacesByCountryAndRating(countryName,minRate,maxRate,function(err,places){
+            if (!err) {
+                console.log("places found: " + places.length);
+                res.send(places);
+            }
+            else {
+                console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+                res.send(err.message);
+            }
+        });
+    }
+    else {
+        res.send("UnAuthorized");
+    }
+
 });
 
 
-
-// router.get('/',(req,res)=>{
-//
-//     googleMapsClient.placesAutoComplete({
-//         input: 'castle',
-//         sessiontoken:'05176f42-cce0-495e-a5b9-a98d78a0608a',
-//         types: 'establishment'
-//     }, function(err, response) {
-//         if (!err ) {
-//             console.log(response.json["predictions"]);
-//             var arr = response.json["predictions"];
-//             var placesIDs = getPlacesIDs(arr);
-//             getPlacesByIds(placesIDs,function(places){
-//                 res.send(places);
-//             });
-//         } else{
-//             console.log(err)
-//             res.send(err);
-//         }
-//     });
-//
-// });
-//
-// function getPlacesByIds(placesIDs,callback){
-//
-//     var placesIDsCount = placesIDs.length;
-//     var places = [];
-//     placesIDs.forEach(function (entry) {
-//         console.log(entry);
-//         googleMapsClient.place({
-//                  placeid: entry
-//              }, function(err, response) {
-//              if (!err ) {
-//                  //console.log("got place by id:");
-//                  console.log(response.json);
-//                  places.push(response.json.result["name"]);
-//
-//              } else{
-//                 console.log(err);
-//                  places.push(err);
-//              }
-//              if (places.length === placesIDsCount){
-//                  callback(places);
-//              }
-//         });
-//
-//     });
-// }
-//
-//
-// function getPlacesIDs(dataArray){
-//
-//     //console.log(dataArray);
-//     var placesIDs = [];
-//     dataArray.forEach(function(entry) {
-//         //console.log(entry);
-//         if (entry["place_id"]!=null) {
-//             placesIDs.push(entry["place_id"]);
-//         }
-//     });
-//
-//     return placesIDs;
-// }
-
-
-//=>localhost:3000/places/id
-router.get('/:id',(req,res)=>{
-    if(!ObjectId.isValid(req.params.id))
-        return res.status(400).send('No record with given id : ${req.params.id}');
-
-    Place.findById(req.params.id,(err,doc)=> {
-        if(!err){
-            res.send(doc);
-        }
-        else{
-            console.log('Error in retrieving User : '+ JSON.stringify(err,undefined,2));
-        }
-    });
-});
-
-
-module.exports =router;
+module.exports = router;
 
 
