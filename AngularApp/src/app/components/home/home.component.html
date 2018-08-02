@@ -5,13 +5,13 @@
         <i class="material-icons">album</i>PicSim</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
-          <a (click)="Logout()">Manager</a>
+          <a (click)="Manager()">Manager</a>
         </li>
         <li>
           <a (click)="Logout()">Favorites</a>
         </li>
         <li>
-          <a [routerLink]="['/main/login']">Logout</a>
+          <a (click)="Logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -19,6 +19,7 @@
 </header>
 <body>
 <h3>Hello {{username}}</h3>
+<h3>The current time is: {{time}}</h3>
 <section>
   <div class="gallery" width="70" height="70">
     <div class="row">

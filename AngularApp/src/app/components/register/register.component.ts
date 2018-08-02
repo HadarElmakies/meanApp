@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
             this.successMessage = 'Registration Success';
 
             this._router.navigate(['../login'], { relativeTo: this._activatedRoute });
+            
           },
           error => this.successMessage = 'Some error'
         );

@@ -6,19 +6,22 @@ import {MainDeskComponent} from "./components/main-desk/main-desk.component";
 import { RegisterComponent } from './components/register/register.component';
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/shared/auth.guard";
+import {UserComponent} from "./components/user/user.component";
 //import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const appRoutingModule: Routes = [
   { path: '', redirectTo: 'main', pathMatch: 'full' },
+
   {
     path: 'main', component: MainDeskComponent, children:
       [
         {path: '', redirectTo: 'login', pathMatch: 'full'},
         { path: 'login', component: LoginComponent },
         { path: 'register', component: RegisterComponent },
+
       ]
   },
-  { path: 'home', component: HomeComponent ,canActivate:[AuthGuard] }
+  { path: 'home', component: HomeComponent ,canActivate:[AuthGuard] },
 
   //{path: 'dash' , component: UserDashboardComponent}
 ];

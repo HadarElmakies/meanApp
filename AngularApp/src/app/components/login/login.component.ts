@@ -31,11 +31,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   isValid(controlName) {
     return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
   }
+
 
   login() {
     console.log(this.loginForm.value);
