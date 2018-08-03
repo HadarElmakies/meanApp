@@ -19,6 +19,7 @@ import { MainDeskComponent } from './components/main-desk/main-desk.component';
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/shared/auth.guard";
 import {UserService} from "./components/shared/user.service";
+import {UserComponent} from "./components/user/user.component";
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {UserService} from "./components/shared/user.service";
     LoginComponent,
     RegisterComponent,
     MainDeskComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent
     //UserDashboardComponent,
   ],
   imports: [

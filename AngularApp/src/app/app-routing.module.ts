@@ -22,6 +22,7 @@ const appRoutingModule: Routes = [
       ]
   },
   { path: 'home', component: HomeComponent ,canActivate:[AuthGuard] },
+  {path:'manager',component:UserComponent}
 
   //{path: 'dash' , component: UserDashboardComponent}
 ];
