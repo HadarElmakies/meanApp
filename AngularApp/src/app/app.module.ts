@@ -20,7 +20,8 @@ import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/shared/auth.guard";
 import {UserService} from "./components/shared/user.service";
 import {UserComponent} from "./components/user/user.component";
-
+// import social buttons module
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,8 @@ import {UserComponent} from "./components/user/user.component";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    JwSocialButtonsModule
+
 
   ],
   providers: [ MyserviceService, UserService,
