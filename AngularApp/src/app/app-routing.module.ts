@@ -7,6 +7,8 @@ import { RegisterComponent } from './components/register/register.component';
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/shared/auth.guard";
 import {UserComponent} from "./components/user/user.component";
+import {FavoritesComponent} from "./components/favorites/favorites.component";
+import {SearchComponent} from "./search/search.component";
 //import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const appRoutingModule: Routes = [
@@ -22,7 +24,9 @@ const appRoutingModule: Routes = [
       ]
   },
   { path: 'home', component: HomeComponent ,canActivate:[AuthGuard] },
-  {path:'manager',component:UserComponent}
+  {path:'manager',component:UserComponent},
+  {path:'favorites',component:FavoritesComponent},
+  {path:'search',component:SearchComponent}
 
   //{path: 'dash' , component: UserDashboardComponent}
 ];

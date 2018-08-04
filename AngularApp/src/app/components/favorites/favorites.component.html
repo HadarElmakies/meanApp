@@ -1,25 +1,31 @@
-<head>
-  <script type="text/javascript"></script>
-    </head>
 <header>
   <nav>
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">
-        <i class="material-icons">favorite</i>Favorites</a>
+        <i class="material-icons">album</i>Favorites</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li>
-          <a (click)="Logout()">Manager</a>
+          <a (click)="Manager()">Manager</a>
         </li>
         <li>
-          <a (click)="Logout()">Favorites</a>
+          <a (click)="Favorites()">Favorites</a>
         </li>
         <li>
           <a (click)="Logout()">Logout</a>
+        </li>
+        <li>
+
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-hashtags="PicSim" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js"  charset="utf-8">
+
+        </script>
         </li>
       </ul>
     </div>
   </nav>
 </header>
 <body>
-
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
 </body>
+

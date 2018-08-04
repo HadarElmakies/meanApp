@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import {AgmCoreModule} from '@agm/core';
 
 //import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
@@ -22,6 +23,18 @@ import {UserService} from "./components/shared/user.service";
 import {UserComponent} from "./components/user/user.component";
 // import social buttons module
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
+import {FavoritesComponent} from "./components/favorites/favorites.component";
+
+import { LetterBoldPipe } from './components/shared/letter-bold.pipe';
+import { SearchFilterPipe } from './components/shared/filter-pipe';
+import { ClickOutsideDirective } from './components/shared/dropdown.directive';
+import {
+  getMatInputUnsupportedTypeError,
+  MatRippleModule
+} from '@angular/material';
+import { SearchComponent } from './search/search.component';
+
+
 
 @NgModule({
   declarations: [
@@ -30,9 +43,20 @@ import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
     RegisterComponent,
     MainDeskComponent,
     HomeComponent,
-    UserComponent
+    UserComponent,
+    FavoritesComponent,
+    ClickOutsideDirective,
+    SearchFilterPipe,
+    LetterBoldPipe,
+    SearchComponent,
+
+
+
+
     //UserDashboardComponent,
   ],
+
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -43,14 +67,25 @@ import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    JwSocialButtonsModule
+    JwSocialButtonsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAWLqUFP4_jCW0-yqY_kHKf60PukBB7ddc'
+    }),
+
+
 
 
   ],
   providers: [ MyserviceService, UserService,
     AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+  CUSTOM_ELEMENTS_SCHEMA
+],
 })
+
+
+
 export class AppModule { }
 
 /*import { BrowserModule } from '@angular/platform-browser';
