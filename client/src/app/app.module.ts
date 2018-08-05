@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import {AgmCoreModule} from '@agm/core';
 
 //import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
@@ -19,6 +20,11 @@ import { MainDeskComponent } from './components/main-desk/main-desk.component';
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./components/shared/auth.guard";
 import {UserService} from "./components/shared/user.service";
+import {UserComponent} from "./components/user/user.component";
+// import social buttons module
+import {FavoritesComponent} from "./components/favorites/favorites.component";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -27,9 +33,15 @@ import {UserService} from "./components/shared/user.service";
     LoginComponent,
     RegisterComponent,
     MainDeskComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent,
+    FavoritesComponent,
+
+
     //UserDashboardComponent,
   ],
+
+
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -40,12 +52,23 @@ import {UserService} from "./components/shared/user.service";
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBhW5ixtZTV3URns29CSj9RFy8c1E75lHY'
+    }),
+    NgbModule.forRoot(),
+
 
   ],
   providers: [ MyserviceService, UserService,
-                AuthGuard],
-  bootstrap: [AppComponent]
+    AuthGuard],
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
+
+
+
 export class AppModule { }
 
 /*import { BrowserModule } from '@angular/platform-browser';

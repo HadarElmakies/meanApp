@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
       _id:"",
       email:"",
       password:"",
-      userName:"",
+      userName:""
 
     }
   }

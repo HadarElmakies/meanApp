@@ -24,12 +24,12 @@ export class RegisterComponent implements OnInit {
     });
 
 
-/*
-    this.myForm.controls.password.valueChanges
-      .subscribe(
-        x => this.myForm.controls.cnfpass.updateValueAndValidity()
-      );
-  */
+    /*
+        this.myForm.controls.password.valueChanges
+          .subscribe(
+            x => this.myForm.controls.cnfpass.updateValueAndValidity()
+          );
+      */
   }
 
   ngOnInit() {
@@ -38,25 +38,25 @@ export class RegisterComponent implements OnInit {
   isValid(controlName) {
     return this.myForm.get(controlName).invalid && this.myForm.get(controlName).touched;
   }
-/*
-  passValidator(control: AbstractControl) {
-    if (control && (control.value !== null || control.value !== undefined)) {
-      const cnfpassValue = control.value;
+  /*
+    passValidator(control: AbstractControl) {
+      if (control && (control.value !== null || control.value !== undefined)) {
+        const cnfpassValue = control.value;
 
-      const passControl = control.root.get('password');
-      if (passControl) {
-        const passValue = passControl.value;
-        if (passValue !== cnfpassValue || passValue === '') {
-          return {
-            isError: true
-          };
+        const passControl = control.root.get('password');
+        if (passControl) {
+          const passValue = passControl.value;
+          if (passValue !== cnfpassValue || passValue === '') {
+            return {
+              isError: true
+            };
+          }
         }
       }
-    }
 
-    return null;
-  }
-*/
+      return null;
+    }
+  */
   register() {
     console.log(this.myForm.value);
 
@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
             this.successMessage = 'Registration Success';
 
             this._router.navigate(['../login'], { relativeTo: this._activatedRoute });
+
           },
           error => this.successMessage = 'Some error'
         );
