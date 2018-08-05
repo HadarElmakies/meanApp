@@ -35,16 +35,15 @@ div.error-message i{
   background-color: #fff !important;
 }
 aside{
-  /*margin-left: 900px;
-  */
+
   width: 250px;
   position: absolute;
-  top: 60px;
+  top: 1100px;
   bottom: 30px;
   right: 0px;
 }
 video{
-  margin-left: 250px;
+  margin-left: 100px;
   margin-right: 150px;
 }
 /*section{
@@ -63,3 +62,8 @@ video{
 .scroll:hover {
   width: 300px;
 }
+agm-map {
+  height: 350px;
+  width: 350px;
+}
+

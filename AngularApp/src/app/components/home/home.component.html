@@ -1,5 +1,3 @@
-<html>
-
 <header>
   <nav>
     <div class="nav-wrapper">
@@ -17,14 +15,9 @@
         </li>
         <li>
 
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-hashtags="PicSim" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js"  charset="utf-8">
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-hashtags="PicSim" data-show-count="true">Tweet</a><script async src="https://platform.twitter.com/widgets.js"  charset="utf-8">
 
         </script>
-        </li>
-        <li>
-
-          <a (click)="Search()">Search</a>
-
         </li>
       </ul>
     </div>
@@ -34,9 +27,29 @@
 <h3>Hello {{username}}</h3>
 <h3>The current time is: {{time}}</h3>
 
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Map:</h4>
+
+  </div>
+  <div class="modal-body">
+    <agm-map [latitude]="lat" [longitude]="lng">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+<pre>{{closeResult}}</pre>
+
 <section>
-
-
+  <br><br>
   <div class="gallery" width="70" height="70">
     <div class="row">
 
@@ -44,14 +57,16 @@
         <div class="card">
           <div class="card-image">
             <img src="../../../assets/Paris1.jpg">
-            <span class="card-title">Eiffel Tower, Paris</span>
+            <span class="card-title">Paris</span>
           </div>
           <div class="card-content">
             <p>The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris, France.
               It is named after the engineer Gustave Eiffel, whose company designed and built the tower.</p>
           </div>
           <div class="card-action">
+
             <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+            <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Map</button>
 
           </div>
         </div>
@@ -61,7 +76,7 @@
         <div class="card">
           <div class="card-image">
             <img src="../../../assets/London1.jpg">
-            <span class="card-title">Big Ben, London</span>
+            <span class="card-title">Big Ben</span>
           </div>
           <div class="card-content">
             <p>Big Ben is the nickname for the Great Bell of the clock at the north end of the Palace of Westminster in London
@@ -92,7 +107,7 @@
         <div class="card">
           <div class="card-image">
             <img src="../../../assets/Phuket1.jpg">
-            <span class="card-title">Phuket, Thailand</span>
+            <span class="card-title">Phuket</span>
           </div>
           <div class="card-content">
             <p>Phuket is one of the southern provinces (changwat) of Thailand. It consists of the island of Phuket, the country's largest island
@@ -166,22 +181,21 @@
     </div>
   </div>
 </section>
-<aside>
-  <div class="scroll">
-    <section>
-      <h6>Weather</h6>
-    </section>
 
-    <section>
+</body>
+<footer>
+
+  <aside>
+    <div class="scroll">
+
+      <h6>Weather</h6>
+
       <a target="_blank" href="http://booked.co.il/weather/tel-aviv-18414">
         <img src="https://w.bookcdn.com/weather/picture/4_18414_1_25_137AE9_160_ffffff_333333_08488D_1_ffffff_333333_0_6.png?scode=2&domid=407&anc_id=16595"  alt="booked.net"/>
       </a>
-    </section>
-  </div>
-</aside>
-<</body>
-<footer>
 
+    </div>
+  </aside>
   <section>
     <video id="video" width="50%" controls muted>
       <source src="../../../assets/R7QKWgACiGA.mp4" type="video/mp4">
@@ -189,20 +203,5 @@
     </video>
 
   </section>
+
 </footer>
-<div class="row" *ngIf="userClaims">
-  <div class="col s12 m7">
-    <div class="card">
-      <div class="card-content">
-        <span>Username :{{userClaims.UserName}}</span>
-        <br>
-        <span>Email : {{userClaims.Email}}</span>
-        <br>
-        <span>Full Name : {{userClaims.FirstName}} {{userClaims.LastName}}</span>
-        <br>
-        <span>Logged On : {{userClaims.LoggedOn}}</span>
-      </div>
-    </div>
-  </div>
-</div>
-</html>

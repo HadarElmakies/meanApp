@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser= require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -7,9 +8,10 @@ const socketIo = require('socket.io');
 
 
 const {mongoose} = require('./db');
-const cors = require('cors')
+const cors = require('cors');
 
 var userController = require('./controllers/userController');
+var placeController = require('./controllers/placeController');
 
 var app = express();
 app.use(bodyParser.json());
@@ -18,7 +20,8 @@ app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('public'))
+app.use(express.static('public'));
+
 
 
 
@@ -66,3 +69,5 @@ function parseHtml(currentTime){
 }
 
 app.use('/users',userController);
+app.use('/places',placeController);
+app.use('/images', express.static(__dirname + '/Images'));

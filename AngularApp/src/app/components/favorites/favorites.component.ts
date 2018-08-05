@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {MyserviceService} from "../shared/myservice.service";
+
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
@@ -12,10 +13,13 @@ export class FavoritesComponent implements OnInit {
   lat: number = 51.678418;
   lng: number = 7.809007;
 
-  constructor(private myService:MyserviceService,private _router: Router) { }
+  constructor(private myService:MyserviceService,private _router: Router) {}
+
 
   ngOnInit() {
   }
+
+
 
   Logout() {
     this._router.navigate(['/main/login']);

@@ -24,6 +24,7 @@ import {UserComponent} from "./components/user/user.component";
 // import social buttons module
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import {FavoritesComponent} from "./components/favorites/favorites.component";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { LetterBoldPipe } from './components/shared/letter-bold.pipe';
 import { SearchFilterPipe } from './components/shared/filter-pipe';
@@ -32,7 +33,7 @@ import {
   getMatInputUnsupportedTypeError,
   MatRippleModule
 } from '@angular/material';
-import { SearchComponent } from './search/search.component';
+import { SearchComponent } from './components/search/search.component';
 
 
 
@@ -51,8 +52,6 @@ import { SearchComponent } from './search/search.component';
     SearchComponent,
 
 
-
-
     //UserDashboardComponent,
   ],
 
@@ -67,9 +66,11 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule.forRoot(),
+
     JwSocialButtonsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAWLqUFP4_jCW0-yqY_kHKf60PukBB7ddc'
+      
     }),
 
 
