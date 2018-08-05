@@ -28,20 +28,6 @@
 <h3>The current time is: {{time}}</h3>
 
 
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Map:</h4>
-
-  </div>
-  <div class="modal-body">
-    <agm-map [latitude]="lat" [longitude]="lng">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
-  </div>
-</ng-template>
 
 
 
@@ -52,141 +38,53 @@
   <br><br>
   <div *ngFor="let place of placeService.places let i=index">
 
-<div class="gallery" width="70" height="70">
-    <div class="row">
+    <div class="gallery" width="70" height="70">
+      <div class="row">
 
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src={{place.imageUrl}}>
-            <span class="card-title">{{place.name}}</span>
-          </div>
-          <div class="card-content">
-            <p>{{place.description}}
-              <!--The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris, France.
-              It is named after the engineer Gustave Eiffel, whose company designed and built the tower.--></p>
-          </div>
-          <div class="card-action">
+        <div class="col s12 m7">
+          <div class="card">
+            <div class="card-image">
+              <img src={{place.imageUrl}}>
+              <span class="card-title">{{place.name}}</span>
+            </div>
+            <div class="card-content">
+              <p>{{place.description}}
+                <!--The Eiffel Tower is a wrought iron lattice tower on the Champ de Mars in Paris, France.
+                It is named after the engineer Gustave Eiffel, whose company designed and built the tower.--></p>
 
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-            <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Map</button>
+              <div class="card-action">
 
-          </div>
-        </div>
-      </div>
-    </div>
+                <ng-template #content let-c="close" let-d="dismiss">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Map:</h4>
 
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/London1.jpg">
-            <span class="card-title">Big Ben</span>
-          </div>
-          <div class="card-content">
-            <p>Big Ben is the nickname for the Great Bell of the clock at the north end of the Palace of Westminster in London
-              and is usually extended to refer to both the clock and the clock tower.</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+                  </div>
+                  <div class="modal-body">
+                    <agm-map [latitude]=place.latitude [longitude]= place.longitude>
+                      <agm-marker [latitude]=place.latitude  [longitude]=place.longitude></agm-marker>
+                    </agm-map>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Close</button>
+                  </div>
+                </ng-template>
+
+                <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
+                <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Map</button>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Greece1.jpg">
-            <span class="card-title">Santorini</span>
-          </div>
-          <div class="card-content">
-            <p>Santorini is an island in the southern Aegean Sea, about 200 km (120 mi) southeast of Greece's mainland. It is the largest island of a small,
-              circular archipelago, which bears the same name and is the remnant of a volcanic caldera</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Phuket1.jpg">
-            <span class="card-title">Phuket</span>
-          </div>
-          <div class="card-content">
-            <p>Phuket is one of the southern provinces (changwat) of Thailand. It consists of the island of Phuket, the country's largest island
-              , and another 32 smaller islands off its coast</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Berlin1.jpg">
-            <span class="card-title">Alexanderplatz square, Berlin</span>
-          </div>
-          <div class="card-content">
-            <p>Alexanderplatz is a large public square and transport hub in the central Mitte district of Berlin, near the Fernsehturm. Berliners often call it simply Alex,
-              referring to a larger neighbourhood stretching from Mollstraße in the northeast to Spandauer Straße and the Rotes Rathaus in the southwest.</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Dublin1.jpg">
-            <span class="card-title">Old Town ,Dublin</span>
-          </div>
-          <div class="card-content">
-            <p>Oldtown is a population centre and townland in the civil parish of Clonmethan in Fingal, Ireland.
-              The R122 road runs through the village linking Naul to St Margaret's and Dublin Airport.</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Swiss1.jpg">
-            <span class="card-title">kleine scheidegg, Switzerland</span>
-          </div>
-          <div class="card-content">
-            <p>The Kleine Scheidegg is a mountain pass at an elevation of 2,061 m (6,762 ft),
-              situated below and between the Eiger and Lauberhorn peaks in the Bernese Oberland region of Switzerland.</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col s12 m7">
-        <div class="card">
-          <div class="card-image">
-            <img src="../../../assets/Austria1.jpg">
-            <span class="card-title">Hallstatt, Austria</span>
-          </div>
-          <div class="card-content">
-            <p>Hallstatt is a small village in the district of Gmunden, in the Austrian state of Upper Austria. Situated on Hallstätter See, it is part of
-              the Dachstein / Salzkammergut Cultural Landscape, one of the World Heritage Sites in Austria.</p>
-          </div>
-          <div class="card-action">
-            <a href="#" class="brand-logo center"><i class="material-icons">favorite_border</i></a>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
-
 </body>
+
+
 <footer>
 
   <aside>
@@ -209,5 +107,4 @@
   </section>
 
 </footer>
-
 

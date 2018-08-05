@@ -1,11 +1,11 @@
 export class Place {
   _id: string;
+  name:string;
   description:string;
   country:string;
   rating:Number;
   imageUrl:string;
-  location: {
-    longitude:Number;
-    latitude:Number;
-  }
+  longitude:Number;
+  latitude:Number;
+  category:string;
 }

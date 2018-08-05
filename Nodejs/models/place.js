@@ -7,10 +7,9 @@ var placeSchema = new Schema({
     country:{type:String},
     rating:{type:Number},
     imageUrl:{type:String},
-    location: {
-        longitude:{type:Number},
-        latitude:{type:Number}
-    }
+    longitude:{type:Number},
+    latitude:{type:Number},
+    category:{type:String}
 });
 
 var Place = module.exports = mongoose.model('Place',placeSchema);
