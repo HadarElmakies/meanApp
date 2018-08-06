@@ -1,4 +1,4 @@
-const mongoose =require('mongoose');
+const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var placeSchema = new Schema({
@@ -36,4 +36,32 @@ module.exports.getPlaceByPlaceName = function(placeName,callback){
 module.exports.getPlacesByCountryAndRating = function(countryName,minRate,maxRate,callback){
 
     Place.find({country: countryName, rating: {$gte: minRate, $lte: maxRate}},callback);
+};
+
+
+module.exports.getFavoritesPlaces = function(favoritesPlacesIDs,callback){
+
+    console.log("in favorite places");
+    Place.find({_id:{$in: favoritesPlacesIDs}},callback);
+};
+
+module.exports.getRecommendedPlaces = function(favoritesPlacesIDs,callback){
+
+    var favoritesIDs = [];
+    favoritesPlacesIDs.forEach(entry =>{
+        favoritesIDs.push(mongoose.Types.ObjectId(entry));
+    });
+
+
+    var callbackForGroup = function(err,group){
+        Place.find({category:group[0],_id: {$nin: favoritesIDs}},callback).limit(3);
+    };
+
+    Place.aggregate([
+        {$match: {_id: {$in: favoritesIDs}}},
+        //{$sortByCount: "$category"}
+        {$group: {_id:"$category",count: {$sum: 1}}},
+        { $sort: { count: -1 } },
+        {$limit: 1}
+    ],callbackForGroup);
 };

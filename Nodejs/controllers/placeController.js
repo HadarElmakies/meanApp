@@ -97,5 +97,42 @@ router.get('/country&rating',(req,res)=>{
     });
 });
 
+//=>localhost:3000/places/favorites
+router.get('/favorites',(req,res)=>{
+
+    console.log("get favorites places");
+    const favoritesPlacesIDs = req.body.favoritesPlacesIDs;
+    console.log(favoritesPlacesIDs);
+
+    Place.getFavoritesPlaces(favoritesPlacesIDs,function(err,places){
+        if (!err) {
+            console.log("places found: " + places.length);
+            res.send(places);
+        }
+        else {
+            console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+            res.send(err.message);
+        }
+    });
+});
+
+//=>localhost:3000/places/recommended
+router.get('/recommended',(req,res)=>{
+
+    console.log("get recommended places");
+    const favoritesPlacesIDs = req.body.favoritesPlacesIDs;
+
+    Place.getRecommendedPlaces(favoritesPlacesIDs,function(err,places){
+        if (!err) {
+            console.log("places found: " + places);
+            res.send(places);
+        }
+        else {
+            console.log('Error in retrieving Place : ' + JSON.stringify(err, undefined, 2));
+            res.send(err.message);
+        }
+    });
+});
+
 
 module.exports = router;
